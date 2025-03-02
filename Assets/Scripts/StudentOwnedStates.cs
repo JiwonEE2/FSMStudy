@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace StudentOwnedStates
 {
-	public class RestAndSleep : State
+	public class RestAndSleep : State<Student>
 	{
 		public override void Enter(Student entity)
 		{
@@ -37,7 +37,7 @@ namespace StudentOwnedStates
 		}
 	}
 
-	public class StudyHard : State
+	public class StudyHard : State<Student>
 	{
 		public override void Enter(Student entity)
 		{
@@ -83,7 +83,7 @@ namespace StudentOwnedStates
 		}
 	}
 
-	public class TakeAExam : State
+	public class TakeAExam : State<Student>
 	{
 		public override void Enter(Student entity)
 		{
@@ -144,7 +144,7 @@ namespace StudentOwnedStates
 		}
 	}
 
-	public class PlayAGame : State
+	public class PlayAGame : State<Student>
 	{
 		public override void Enter(Student entity)
 		{
@@ -182,7 +182,7 @@ namespace StudentOwnedStates
 		}
 	}
 
-	public class HitTheBottle : State
+	public class HitTheBottle : State<Student>
 	{
 		public override void Enter(Student entity)
 		{
