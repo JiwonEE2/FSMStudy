@@ -28,6 +28,7 @@ namespace StudentOwnedStates
 			else
 			{
 				// 도서관에 가서 공부하는 "StudyHard" 상태로 변경
+				entity.ChangeState(StudentStates.StudyHard);
 			}
 		}
 
@@ -61,6 +62,7 @@ namespace StudentOwnedStates
 				if (isExit == 1 || entity.Knowledge <= 10)
 				{
 					// 강의실에 가서 시험을 보는 TakeAExam 상태로 변경
+					entity.ChangeState(StudentStates.TakeAExam);
 				}
 			}
 
@@ -68,12 +70,14 @@ namespace StudentOwnedStates
 			if (entity.Stress >= 20)
 			{
 				// PC방에 가서 게임을 하는 "PlayGame" 상태로 변경
+				entity.ChangeState(StudentStates.PlayAGame);
 			}
 
 			// 피로가 50 이상이 되면
 			if (entity.Fatigue >= 50)
 			{
 				// 집에 가서 쉬는 "RestAndSleep" 상태로 변경
+				entity.ChangeState(StudentStates.RestAndSleep);
 			}
 		}
 
