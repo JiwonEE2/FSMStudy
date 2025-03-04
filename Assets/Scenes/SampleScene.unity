@@ -155,6 +155,11 @@ MonoBehaviour:
   - "\uC774\uC9C0\uC6D0"
   - "\uC9C0\uC6D0"
   studentPrefab: {fileID: 3578835630751988700, guid: c0f00c8838fb7e14cab661ebbe4149fb, type: 3}
+  arrayUnemployeds:
+  - "\uD734\uD559\uC0DD1"
+  - "\uD734\uD559\uC0DD2"
+  - "\uD734\uD559\uC0DD3"
+  unemployedPrefab: {fileID: 1391684828015326416, guid: 51878152ceb97ee48af247d539508db3, type: 3}
 --- !u!4 &470434123
 Transform:
   m_ObjectHideFlags: 0

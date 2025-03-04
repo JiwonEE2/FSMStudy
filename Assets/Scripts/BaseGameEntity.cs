@@ -25,6 +25,9 @@ public abstract class BaseGameEntity : MonoBehaviour
 	// 에이전트 색상 (텍스트 출력용)
 	private string personalColor;
 
+	// 외부에서 에이전트 이름 정보를 열람할 수 있도록 Get 프로퍼티 정의
+	public string EntityName => entityName;
+
 	/// <summary>
 	/// 파생 클래스에서 base.Setup()으로 호출
 	/// </summary>
@@ -42,6 +45,9 @@ public abstract class BaseGameEntity : MonoBehaviour
 
 	// GameController 클래스에서 모든 에이전트의 Updated()를 호출해 에이전트 구동.
 	public abstract void Updated();
+
+	// 메시지를 발송했을 때 수신하는 메소드 (MessageDispatcher 클래스에서 호출)
+	public abstract bool HandleMessage(Telegram telegram);
 
 	/// <summary>
 	/// Console View에 [이름 : "대사"] 출력

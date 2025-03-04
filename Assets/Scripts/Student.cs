@@ -6,7 +6,8 @@ public enum StudentStates
 	StudyHard,
 	TakeAExam,
 	PlayAGame,
-	HitTheBottle
+	HitTheBottle,
+	GMessageReceive
 }
 
 public class Student : BaseGameEntity
@@ -26,11 +27,16 @@ public class Student : BaseGameEntity
 	// 현재 위치
 	private Locations currentLocation;
 
+	// 현재 상태
+	private StudentStates currentState;
+
 	// Student가 가지고 있는 모든 상태, 현재 상태
 	private State<Student>[] states;
 
 	// private State<Student> currentState;
 	private StateMachine<Student> stateMachine;
+
+	public StudentStates CurrentState => currentState;
 
 	public int Knowledge
 	{
@@ -71,7 +77,7 @@ public class Student : BaseGameEntity
 		gameObject.name = $"{ID:D2}_Student_{name}";
 
 		// Student가 가질 수 있는 상태 개수만큼 메모리 할당, 각 상태에 클래스 메모리 할당
-		states = new State<Student>[5];
+		states = new State<Student>[6];
 		states[(int)StudentStates.RestAndSleep] =
 			new StudentOwnedStates.RestAndSleep();
 		states[(int)StudentStates.StudyHard] = new StudentOwnedStates.StudyHard();
@@ -79,6 +85,8 @@ public class Student : BaseGameEntity
 		states[(int)StudentStates.PlayAGame] = new StudentOwnedStates.PlayAGame();
 		states[(int)StudentStates.HitTheBottle] =
 			new StudentOwnedStates.HitTheBottle();
+		states[(int)StudentStates.GMessageReceive] =
+			new StudentOwnedStates.GlobalMessageReceive();
 
 		// 현재 상태를 집에서 쉬는 "RestAndSleep" 상태로 설정
 		// ChangeState(StudentStates.RestAndSleep);
@@ -86,6 +94,8 @@ public class Student : BaseGameEntity
 		// 상태를 관리하는 StateMachine에 메모리를 할당하고, 첫 상태를 설정
 		stateMachine = new StateMachine<Student>();
 		stateMachine.Setup(this, states[(int)StudentStates.RestAndSleep]);
+		// 전역 상태 설정
+		stateMachine.SetGlobalState(states[(int)StudentStates.GMessageReceive]);
 
 		knowledge = 0;
 		stress = 0;
@@ -105,6 +115,7 @@ public class Student : BaseGameEntity
 			currentState.Execute(this);
 		}*/
 
+		StudentOwnedStates.RestAndSleep.Instance.Execute(this);
 		stateMachine.Execute();
 	}
 
@@ -123,6 +134,13 @@ public class Student : BaseGameEntity
 		currentState = states[(int)newState];
 		currentState.Enter(this);*/
 
+		currentState = newState;
 		stateMachine.ChangeState(states[(int)newState]);
+	}
+
+	public override bool HandleMessage(Telegram telegram)
+	{
+		// return false;
+		return stateMachine.HandleMessage(telegram);
 	}
 }
